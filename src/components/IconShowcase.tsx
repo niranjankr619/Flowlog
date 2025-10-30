@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion } from 'motion/react';
 import { RippleCoreIcon } from './RippleCoreIcon';
 
-import { GlassHaloIcon } from './GlassHaloIcon';
+
 import { AuroraLoopIcon } from './AuroraLoopIcon';
 import { DualHaloIcon } from './DualHaloIcon';
 import { EquilibriumIcon } from './EquilibriumIcon';
