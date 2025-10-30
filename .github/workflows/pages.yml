@@ -18,13 +18,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      # Install Node WITHOUT any cache settings
+      - uses: actions/setup-node@v4
         with:
-          node-version: 20   # ⬅️ no cache here
+          node-version: 20
 
       - name: Install
         run: npm install --legacy-peer-deps
@@ -34,10 +33,9 @@ jobs:
           BASE_PATH: "/${{ github.event.repository.name }}/"
         run: npm run build
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v3
         with:
-          path: build        # if you change vite outDir to 'dist', change this too
+          path: build   # keep 'build' since your vite.config.ts uses outDir: 'build'
 
   deploy:
     environment:
@@ -46,7 +44,5 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
+      - id: deployment
         uses: actions/deploy-pages@v4
-
