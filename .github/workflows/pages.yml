@@ -21,17 +21,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: "npm"
-          cache-dependency-path: "**/package.json"  # prevents lockfile error
+          node-version: 20   # ⬅️ no cache here
 
-      - name: Install dependencies
+      - name: Install
         run: npm install --legacy-peer-deps
 
-      - name: Build Vite project
+      - name: Build
         env:
           BASE_PATH: "/${{ github.event.repository.name }}/"
         run: npm run build
@@ -39,7 +37,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: build
+          path: build        # if you change vite outDir to 'dist', change this too
 
   deploy:
     environment:
@@ -51,3 +49,4 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
